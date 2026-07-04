@@ -8,6 +8,7 @@
 |---|---|
 | `collect_data.py` | 당첨번호 수집기 (공식 API 우선, 막히면 미러 폴백, 증분 수집) |
 | `analyze.py` | 통계 분석 + 차트 생성 |
+| `generate.py` | 번호 생성기 — 빈도형/역발상형/균형형/완전랜덤 4가지 모드 |
 | `data/lotto.csv` | 1회~최신회차 당첨번호 데이터 |
 | `charts/` | 분석 차트 |
 
@@ -20,6 +21,8 @@ pip install -r requirements.txt
 
 python collect_data.py   # 데이터 수집 (재실행하면 새 회차만 추가)
 python analyze.py        # 분석 + 차트 생성
+python generate.py       # 이번 주 추천 번호 (모드별 5게임)
+python generate.py balanced -n 10   # 균형형만 10게임
 ```
 
 ## 주요 결과 (1~1230회차 기준)
@@ -38,5 +41,5 @@ python analyze.py        # 분석 + 차트 생성
 ## 로드맵
 
 - [x] 1단계: 데이터 수집 + 통계 분석
-- [ ] 2단계: 통계 기반 번호 생성기 (빈도형/역발상형/균형형/완전랜덤)
+- [x] 2단계: 통계 기반 번호 생성기 (빈도형/역발상형/균형형/완전랜덤)
 - [ ] 3단계: "로또는 랜덤이다" 통계적 증명 (카이제곱, 백테스트, 몬테카를로)
