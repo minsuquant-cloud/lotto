@@ -28,7 +28,8 @@ AQUA = "#1baf7a"   # 시리즈 2
 SEQ_RAMP = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf", "#184f95", "#0d366b"]
 
 plt.rcParams.update({
-    "font.family": "Malgun Gothic",
+    # 한글 폰트: 윈도우는 맑은고딕, 리눅스(GitHub Actions)는 나눔고딕으로 폴백
+    "font.family": ["Malgun Gothic", "NanumGothic", "sans-serif"],
     "axes.unicode_minus": False,
     "figure.facecolor": SURFACE,
     "axes.facecolor": SURFACE,

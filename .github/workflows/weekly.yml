@@ -1,0 +1,52 @@
+name: 주간 당첨번호 수집
+
+on:
+  schedule:
+    # 토요일 추첨(20:35 KST) 후 21:30 KST, 백업으로 일요일 08:00 KST
+    - cron: "30 12 * * 6"
+    - cron: "0 23 * * 6"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: 한글 폰트 설치 (차트용)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-nanum && sudo fc-cache -f
+
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 당첨번호 수집
+        run: python collect_data.py
+
+      - name: 새 회차 있으면 분석 갱신
+        run: |
+          if git diff --quiet data/lotto.csv; then
+            echo "새 회차 없음 — 분석 건너뜀"
+          else
+            python analyze.py
+          fi
+
+      - name: 커밋 + 푸시
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data charts
+          if git diff --cached --quiet; then
+            echo "변경 없음 — 커밋 건너뜀"
+          else
+            LATEST=$(tail -1 data/lotto.csv | cut -d, -f1)
+            git commit -m "자동 수집: ${LATEST}회차 반영"
+            git push
+          fi
