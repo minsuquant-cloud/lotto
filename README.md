@@ -10,6 +10,7 @@
 | `analyze.py` | 통계 분석 + 차트 생성 |
 | `generate.py` | 번호 생성기 — 빈도형/역발상형/균형형/구간회피형/완전랜덤 5가지 모드 |
 | `prove_random.py` | "로또는 랜덤이다" 검증 — 카이제곱/백테스트/몬테카를로 |
+| `app.py` | Streamlit 웹앱 — 번호 뽑기 + 인터랙티브 통계 차트 + 역대 번호 조회 |
 | `.github/workflows/weekly.yml` | 매주 토요일 추첨 후 자동 수집+차트 갱신 (GitHub Actions) |
 | `data/lotto.csv` | 1회~최신회차 당첨번호 데이터 |
 | `charts/` | 분석 차트 |
@@ -27,6 +28,8 @@ python generate.py       # 이번 주 추천 번호 (모드별 5게임)
 python generate.py balanced -n 10   # 균형형만 10게임
 python generate.py avoid -w 5       # 구간회피형: 최근 5주 최다 출현 구간(1~10, 11~20...) 제외
 python prove_random.py   # 랜덤성 검증 (몬테카를로 1만 회)
+
+streamlit run app.py     # 웹앱 실행 → 브라우저에서 http://localhost:8501
 ```
 
 ## 자동 수집 (GitHub Actions)
