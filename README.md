@@ -29,6 +29,17 @@ python generate.py avoid -w 5       # 구간회피형: 최근 5주 최다 출현
 python prove_random.py   # 랜덤성 검증 (몬테카를로 1만 회)
 ```
 
+## 자동 수집 (GitHub Actions)
+
+`.github/workflows/weekly.yml` 이 알아서 돌아가므로 평소엔 할 일 없음:
+
+- **매주 토요일 21:30 KST** (추첨 후) 새 회차 수집 → 차트 갱신 → `자동 수집: N회차 반영` 커밋
+- 데이터가 늦게 올라오면 **일요일 08:00 KST** 백업 실행이 한 번 더 시도
+- 새 회차가 없으면 커밋 없이 조용히 종료
+- **수동 실행**: 레포 → Actions 탭 → "주간 당첨번호 수집" → Run workflow 버튼
+- 실행 기록/로그 확인: https://github.com/minsuquant-cloud/lotto/actions
+- 로컬에서 작업하기 전엔 `git pull` 먼저! (봇 커밋이 있을 수 있음)
+
 ## 주요 결과 (1~1230회차 기준)
 
 - **최다 출현**: 34번(184회), 27번(181회) / **최소 출현**: 9번(136회) — 기대값은 164회
